@@ -1,0 +1,114 @@
+65.80 photo1 Black Spot 
+16.62 photo2 Blight
+76.15 photo3 Powdery Mildew  
+17.31 photo4 Canker
+49.05 photo5 Other Leaf Spots
+83.35 photo6 Downy Mildew
+
+65.80 Black Spot 
+16.62 Blight
+76.15 Powdery Mildew  
+17.31 Canker
+49.05 Other Leaf Spots
+83.35 Downy Mildew
+
+AIAGRAMA DE FLUJO 
+                Start
+                  │
+                  ▼
+             Load Image
+                  │
+                  ▼
+     Remove Blurry Background
+                  │
+                  ▼
+    Plot Histogram and Find Peaks
+                  │
+                  ▼
+    Detect Disease Contours
+                  │
+                  ▼
+       Show Processed Image
+                  │
+                  ▼
+                 End
+
+
+Y CODIGO DE BLOQUES
+
++-------------------------+
+|       Main Workflow     |
+| - Loop over images      |
+| - Call process_image    |
++-------------------------+
+           │
+           ▼
++-------------------------+
+|     process_image       |
+| - Load image            |
+| - Remove background     |
+| - Plot histogram        |
+| - Detect contours       |
+| - Show results          |
++-------------------------+
+           │
+           ▼
++-------------------------+       +-------------------------+
+| remove_blurry_background|       | plot_histogram_and_find |
++-------------------------+       +-------------------------+
+           │                              │
+           ▼                              ▼
++-------------------------+       +-------------------------+
+|   detect_disease_contours       | classify_disease        |
++-------------------------+       +-------------------------+
+
+
+
+
+-----------------------
+
+                                 +-----------------------+
+                                 |   Start Processing    |
+                                 +-----------------------+
+                                             |
+                                             v
+                    +------------------------------------------+
+                    |   Loop through images photo1 to photo6   |
+                    +------------------------------------------+
+                                             |
+                                             v
+              +-----------------------------------------------+
+              |   Process Image (photo{i}.jpg)                |
+              +-----------------------------------------------+
+                               |                     |
+          +--------------------+                     +---------------------+
+          |  Load Image                                |  Image Not Found?  |
+          +--------------------+                     +---------------------+
+                 |                                               |
+       +---------+--------+                                      |
+       |  Image Found?    |----------+                           |
+       +------------------+          |                           |
+                 |                   |                           |
+                 v                   |                           |
+        +------------------+         |                           |
+        | Process Image    |<--------+                           |
+        +------------------+                                      |
+                 |                                               |
+                 v                                               |
+        +------------------+                                     |
+        | Plot Histogram   |                                     |
+        +------------------+                                     |
+                 |                                               |
+                 v                                               |
+        +------------------+                                     |
+        | Detect Contours  |                                     |
+        +------------------+                                     |
+                 |                                               |
+                 v                                               |
+        +------------------+                                     |
+        | Display Results  |<------------------------------------+
+        +------------------+
+                 |
+                 v
+        +------------------+
+        | End of Loop      |
